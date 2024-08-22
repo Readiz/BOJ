@@ -118,22 +118,23 @@ async function saveAttachments(html, basePath) {
 
 function createTemplate(langs, problem_num, base) {
     for(const lang of langs) {
-        const content = String(fs.readFileSync(`./template.${lang}`));
+        const content = String(fs.readFileSync(`./src/template.${lang}`));
         const changed = content.replaceAll('BOJ_PROBLEM_NUMBER', problem_num);
         fs.outputFileSync(`${base}/solution/main.${lang}`, changed);
     }
     for(const lang of langs) {
-        const content = String(fs.readFileSync(`./test_${lang}.sh`));
+        const content = String(fs.readFileSync(`./src/${lang}_test.sh`));
         const changed = content.replaceAll('BOJ_PROBLEM_NUMBER', problem_num);
-        fs.outputFileSync(`${base}/test_${lang}.sh`, changed);
-        fs.chmodSync(`${base}/test_${lang}.sh`, '755');
+        fs.outputFileSync(`${base}/${lang}_test.sh`, changed);
+        fs.chmodSync(`${base}/${lang}_test.sh`, '755');
     }
 }
 
 async function savePageImage(url, path) {
     const browser = await puppeteer.launch({ headless: true });
     const page = await browser.newPage();
-    await page.setExtraHTTPHeaders(headerGenerator.getHeaders());
+    const headers = headerGenerator.getHeaders();
+    await page.setExtraHTTPHeaders(headers);
     await page.goto(url);
     await page.screenshot({ path: `${path}`, fullPage: true });
     await browser.close();
@@ -152,10 +153,10 @@ async function savePageImage(url, path) {
     writeFile(`./boj/${problem_num}/desc.md`, ret.markdown);
     for(let i = 1; i <= ret.sample_cnt; ++i) {
         writeFile(`./boj/${problem_num}/input/${i}.txt`, ret.sample_inputs[i - 1]);
-        writeFile(`./boj/${problem_num}/boj/${i}.txt`, ret.sample_outputs[i - 1]);
+        writeFile(`./boj/${problem_num}/output/${i}.txt`, ret.sample_outputs[i - 1]);
     }
     saveAttachments(ret.markdown, `./boj/${problem_num}/attachments`);
-    createTemplate(['cpp'], problem_num, `./boj/${problem_num}`);
+    createTemplate(['cpp', 'py'], problem_num, `./boj/${problem_num}`);
     console.log('Done for collecting page, saving page screenshot...');
     await savePageImage('https://www.acmicpc.net/problem/' + problem_num, `./boj/${problem_num}/desc.png`);
     console.log('All work ended.');

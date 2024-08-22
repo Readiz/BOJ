@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# BOJ_PROBLEM_NUMBER
+# 31606
 echo "Compiling..."
 g++ -std=c++17 solution/main.cpp -o main
 echo "Test Start ---------------"

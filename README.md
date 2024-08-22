@@ -28,6 +28,6 @@ sudo apt install libgtk-3-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasou
 ```
 
 ```bash
-chmod +x ./setup.sh
-./setup.sh 문제번호
+chmod +x ./get
+. ./get 문제번호
 ```

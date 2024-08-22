@@ -4,5 +4,6 @@ if [ ! -d "node_modules" ]; then
   npm install
 fi
 # 스크립트가 인자로 전달된 모든 값을 전달하여 node 명령어 실행
-node . "$@"
-cd ./boj/$@
+node src/submit_problem.mjs "$@"
+target_dir="./boj/$1"
+echo "$target_dir"
