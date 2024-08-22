@@ -1,4 +1,11 @@
-# Setup
+# BOJ
+
+어떤 환경에서도 커맨드라인만 있다면 문제를 풀 수 있다!
+
+wsl2 환경에서 테스트 되었습니다.
+
+
+### Setup
 
 Google chrome install
 
