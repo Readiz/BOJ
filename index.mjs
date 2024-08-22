@@ -3,6 +3,7 @@ import TurndownService from 'turndown';
 import { parse } from 'node-html-parser';
 import fs from 'fs-extra';
 import { fileTypeFromBuffer } from 'file-type';
+import puppeteer from 'puppeteer';
 
 const turndownService = new TurndownService();
 
@@ -129,6 +130,15 @@ function createTemplate(langs, problem_num, base) {
     }
 }
 
+async function savePageImage(url, path) {
+    const browser = await puppeteer.launch({ headless: true });
+    const page = await browser.newPage();
+    await page.setExtraHTTPHeaders(headerGenerator.getHeaders());
+    await page.goto(url);
+    await page.screenshot({ path: `${path}`, fullPage: true });
+    await browser.close();
+}
+
 (async() => {
     const args = process.argv.slice(2);
     const problem_num = Number(args[0]);
@@ -138,12 +148,15 @@ function createTemplate(langs, problem_num, base) {
     }
 
     const ret = await fetchHtmlWithCustomHeaders('https://www.acmicpc.net/problem/' + problem_num);
-    writeFile(`./output/boj/${problem_num}/desc.html`, ret.html);
-    writeFile(`./output/boj/${problem_num}/desc.md`, ret.markdown);
+    writeFile(`./boj/${problem_num}/desc.html`, ret.html);
+    writeFile(`./boj/${problem_num}/desc.md`, ret.markdown);
     for(let i = 1; i <= ret.sample_cnt; ++i) {
-        writeFile(`./output/boj/${problem_num}/input/${i}.txt`, ret.sample_inputs[i - 1]);
-        writeFile(`./output/boj/${problem_num}/output/${i}.txt`, ret.sample_outputs[i - 1]);
+        writeFile(`./boj/${problem_num}/input/${i}.txt`, ret.sample_inputs[i - 1]);
+        writeFile(`./boj/${problem_num}/boj/${i}.txt`, ret.sample_outputs[i - 1]);
     }
-    saveAttachments(ret.markdown, `./output/boj/${problem_num}/attachments`);
-    createTemplate(['cpp'], problem_num, `./output/boj/${problem_num}`);
+    saveAttachments(ret.markdown, `./boj/${problem_num}/attachments`);
+    createTemplate(['cpp'], problem_num, `./boj/${problem_num}`);
+    console.log('Done for collecting page, saving page screenshot...');
+    await savePageImage('https://www.acmicpc.net/problem/' + problem_num, `./boj/${problem_num}/desc.png`);
+    console.log('All work ended.');
 })();

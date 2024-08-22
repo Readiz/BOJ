@@ -14,6 +14,7 @@
     "fs-extra": "^11.2.0",
     "header-generator": "^2.1.54",
     "node-html-parser": "^6.1.13",
+    "puppeteer": "^23.1.1",
     "turndown": "^7.2.0"
   }
 }

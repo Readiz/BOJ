@@ -1,9 +1,9 @@
 #!/bin/bash
 
-# BOJ_PROBLEM_NUMBER
-echo "Compiling..."
+# 컴파일 단계
+# 31429
 g++ -std=c++17 solution/main.cpp -o main
-echo "Test Start ---------------"
+
 # input 디렉토리의 모든 .txt 파일에 대해 루프
 for input_file in input/*.txt; do
     # 파일 이름 추출 (경로 및 확장자 제외)
