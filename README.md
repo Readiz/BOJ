@@ -31,3 +31,10 @@ sudo apt install libgtk-3-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasou
 chmod +x ./get
 . ./get 문제번호
 ```
+
+
+## TODO
+[ ] TC별 소요시간 보여주기
+[ ] TC별 디버깅 가능하게 해보기 (gdbserver)
+[ ] O2 옵션으로 컴파일하기 (cpp)
+[ ] Random TC Generator 기능 추가해보기

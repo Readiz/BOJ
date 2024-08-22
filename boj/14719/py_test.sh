@@ -1,7 +1,5 @@
 #!/bin/bash
 
-echo "Compiling..."
-g++ -std=c++17 solution/main.cpp -o main
 echo "Test Start ---------------"
 
 # 테스트 함수 정의
@@ -11,17 +9,13 @@ run_test() {
     local filename=$3
 
     # 프로그램 실행 및 출력 저장
-    ./main < "$input_file" > "/tmp/temp_${filename}.txt"
+    python3 solution/main.py < "$input_file" > "/tmp/temp_${filename}.txt"
 
     # diff 명령어로 결과 비교
     diff_result=$(diff -w "/tmp/temp_${filename}.txt" "$output_file")
     if [ $? -eq 0 ]; then
         echo "Test ${filename} Passed"
     else
-        echo "----------------"
-        echo "Test ${filename} INPUT"
-        cat $input_file
-        echo ""
         echo "----------------"
         echo "Test ${filename} ANS"
         cat $output_file

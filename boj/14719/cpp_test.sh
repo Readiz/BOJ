@@ -19,10 +19,6 @@ run_test() {
         echo "Test ${filename} Passed"
     else
         echo "----------------"
-        echo "Test ${filename} INPUT"
-        cat $input_file
-        echo ""
-        echo "----------------"
         echo "Test ${filename} ANS"
         cat $output_file
         echo ""
