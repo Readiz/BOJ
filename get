@@ -8,5 +8,7 @@ node src/get_problem.mjs "$@"
 target_dir="./boj/$1"
 echo "To submit: https://www.acmicpc.net/submit/$1"
 echo "$target_dir"
+echo "$target_dir/solution/main.cpp"
+echo "$target_dir/solution/main.py"
 
 cd "$target_dir"
