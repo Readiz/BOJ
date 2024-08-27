@@ -1,2 +1,5 @@
 node_modules/
 cookie.txt
+Pipfile
+.pytest_cache/
+.vscode/
