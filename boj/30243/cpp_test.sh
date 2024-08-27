@@ -2,10 +2,10 @@
 
 # 디버그 옵션 여부 확인
 if [ "$1" == "--debug" ]; then
-    COMPILER_FLAGS="-O0 -g"
+    COMPILER_FLAGS="-O0 -g -Wno-unused-result"
     shift # 첫 번째 인자를 제거하여 나머지 인자가 정상적으로 처리되도록 함
 else
-    COMPILER_FLAGS="-O2"
+    COMPILER_FLAGS="-O2 -Wno-unused-result"
 fi
 
 echo "Compiling with flags: $COMPILER_FLAGS"

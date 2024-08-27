@@ -1,16 +1,5 @@
 #!/bin/bash
 
-# 디버그 옵션 여부 확인
-if [ "$1" == "--debug" ]; then
-    COMPILER_FLAGS="-O0 -g"
-    shift # 첫 번째 인자를 제거하여 나머지 인자가 정상적으로 처리되도록 함
-else
-    COMPILER_FLAGS="-O2"
-fi
-
-echo "Compiling with flags: $COMPILER_FLAGS"
-g++ -std=c++17 $COMPILER_FLAGS solution/main.cpp -o main
-
 echo "Test Start ---------------"
 
 # 테스트 함수 정의
@@ -19,22 +8,13 @@ run_test() {
     local output_file=$2
     local filename=$3
 
-    # 프로그램 실행 시간 측정 시작
-    start_time=$(date +%s%3N)
-
     # 프로그램 실행 및 출력 저장
-    ./main < "$input_file" > "/tmp/temp_${filename}.txt"
-
-    # 프로그램 실행 시간 측정 종료
-    end_time=$(date +%s%3N)
-
-    # 소요 시간 계산 (ms 단위)
-    duration=$((end_time - start_time))
+    python3 solution/main.py < "$input_file" > "/tmp/temp_${filename}.txt"
 
     # diff 명령어로 결과 비교
     diff_result=$(diff -w "/tmp/temp_${filename}.txt" "$output_file")
     if [ $? -eq 0 ]; then
-        echo "Test ${filename} Passed (${duration} ms)"
+        echo "Test ${filename} Passed"
     else
         echo "----------------"
         echo "Test ${filename} INPUT"
@@ -48,7 +28,6 @@ run_test() {
         echo "Test ${filename} YOURS"
         cat "/tmp/temp_${filename}.txt"
         echo ""
-        echo "Test ${filename} Failed (${duration} ms)"
     fi
 
     # 임시 파일 삭제

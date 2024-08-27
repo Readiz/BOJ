@@ -8,14 +8,20 @@ run_test() {
     local output_file=$2
     local filename=$3
 
+    # 프로그램 실행 시간 측정 시작
+    start_time=$(date +%s%3N)
+
     # 프로그램 실행 및 출력 저장
     cp solution/main.js solution/main.cjs
-    node solution/main.cjs < "$input_file" > "/tmp/temp_${filename}.txt"
+    node solution/main.cjs readizDebug < "$input_file" > "/tmp/temp_${filename}.txt"
+
+    # 프로그램 실행 시간 측정 종료
+    end_time=$(date +%s%3N)
 
     # diff 명령어로 결과 비교
     diff_result=$(diff -w "/tmp/temp_${filename}.txt" "$output_file")
     if [ $? -eq 0 ]; then
-        echo "Test ${filename} Passed"
+        echo "Test ${filename} Passed (${duration} ms)"
     else
         echo "----------------"
         echo "Test ${filename} INPUT"
@@ -29,6 +35,7 @@ run_test() {
         echo "Test ${filename} YOURS"
         cat "/tmp/temp_${filename}.txt"
         echo ""
+        echo "Test ${filename} Failed (${duration} ms)"
     fi
 
     # 임시 파일 삭제
