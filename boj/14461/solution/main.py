@@ -4,7 +4,7 @@ input = lambda: sys.stdin.readline().rstrip()
 
 N, T = map(int, input().split())
 map_data = []
-vis = [[[[0] * 3 for _ in range(4)] for _ in range(N)] for _ in range(N)]
+vis = [[[0] * 4 for _ in range(N)] for _ in range(N)]
 
 for _ in range(N):
     map_data.append(list(map(int, input().split())))
@@ -22,7 +22,9 @@ while len(pq) > 0:
         ans = time
         break
     
-    vis[r][c][dir][cnt] = 1
+    if vis[r][c][cnt]:
+        continue
+    vis[r][c][cnt] = 1
     
     for p in range(4):
         nr = r + dr[p]
@@ -30,7 +32,7 @@ while len(pq) > 0:
         
         if nr < 0 or nr >= N or nc < 0 or nc >= N:
             continue
-        if vis[nr][nc][p][(cnt + 1) % 3] == 1:
+        if vis[nr][nc][(cnt + 1) % 3] == 1:
             continue
         
         ntime = time + T
