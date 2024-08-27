@@ -9,8 +9,7 @@ run_test() {
     local filename=$3
 
     # 프로그램 실행 및 출력 저장
-    cp solution/main.js solution/main.cjs
-    node solution/main.cjs < "$input_file" > "/tmp/temp_${filename}.txt"
+    python3 solution/main.py < "$input_file" > "/tmp/temp_${filename}.txt"
 
     # diff 명령어로 결과 비교
     diff_result=$(diff -w "/tmp/temp_${filename}.txt" "$output_file")

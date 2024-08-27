@@ -1,20 +1,34 @@
-function solution_BOJ_PROBLEM_NUMBER(scanner) {
-    const N = scanner.readInt();
-    const [a1, a2, a3] = scanner.readLine().split(' ').map(Number);
-    const ret = [];
-
-    for(let i = 0; i < N; ++i) {
-        
+function solution_21918(scanner) {
+    const [N, M] = scanner.readLine().split(' ').map(Number);
+    const arr = scanner.readLine().split(' ').map(Number);
+    
+    for(let i = 0; i < M; ++i) {
+        const [a, b, c] = scanner.readLine().split(' ').map(Number);
+        if (a == 1) {
+            arr[b-1]=c;
+        } else if (a == 2) {
+            for(let j = b-1; j <= c-1; ++j) {
+                arr[j] = 1 - arr[j];
+            }
+        } else if (a == 3) {
+            for(let j = b-1; j <= c-1; ++j) {
+                arr[j] = 0;
+            }
+        } else if (a == 4) {
+            for(let j = b-1; j <= c-1; ++j) {
+                arr[j] = 1;
+            }
+        }
     }
 
-    return ret.join('\n');
+    return arr.join(' ');
 }
 
 function solution(scanner) {
     let TC = 1;
     // TC = scanner.readInt();
     let result = '';
-    while(TC--) result += solution_BOJ_PROBLEM_NUMBER(scanner);
+    while(TC--) result += solution_21918(scanner);
     return result;
 }
 

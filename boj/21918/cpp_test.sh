@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "Compiling..."
+g++ -std=c++17 solution/main.cpp -o main
 echo "Test Start ---------------"
 
 # 테스트 함수 정의
@@ -9,8 +11,7 @@ run_test() {
     local filename=$3
 
     # 프로그램 실행 및 출력 저장
-    cp solution/main.js solution/main.cjs
-    node solution/main.cjs < "$input_file" > "/tmp/temp_${filename}.txt"
+    ./main < "$input_file" > "/tmp/temp_${filename}.txt"
 
     # diff 명령어로 결과 비교
     diff_result=$(diff -w "/tmp/temp_${filename}.txt" "$output_file")
