@@ -34,7 +34,8 @@ chmod +x ./get
 
 
 ## TODO
-- [ ] TC별 소요시간 보여주기
+- [X] TC별 소요시간 보여주기
+- [X] O2 옵션으로 컴파일하기 (cpp)
 - [ ] TC별 디버깅 가능하게 해보기 (gdbserver)
-- [ ] O2 옵션으로 컴파일하기 (cpp)
 - [ ] Random TC Generator 기능 추가해보기
+- [ ] 풀이 Report 자동 생성 해주기 (.md, 언어별로)
