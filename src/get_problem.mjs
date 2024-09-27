@@ -157,7 +157,7 @@ async function savePageImage(url, path) {
     }
     saveAttachments(ret.markdown, `./boj/${problem_num}/attachments`);
     createTemplate(['cpp', 'py', 'js'], problem_num, `./boj/${problem_num}`);
-    console.log('Done for collecting page, saving page screenshot...');
-    await savePageImage('https://www.acmicpc.net/problem/' + problem_num, `./boj/${problem_num}/desc.png`);
+    // console.log('Done for collecting page, saving page screenshot...');
+    // await savePageImage('https://www.acmicpc.net/problem/' + problem_num, `./boj/${problem_num}/desc.png`);
     console.log('All work ended.');
 })();
